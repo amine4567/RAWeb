@@ -109,6 +109,7 @@ RenderContentStart("Achievement List" . $requestedConsole);
         $sort6 = ($sortBy == 6) ? 16 : 6;
         $sort7 = ($sortBy == 17) ? 7 : 17;
         $sort8 = ($sortBy == 18) ? 8 : 18;
+        $sort9 = ($sortBy == 19) ? 9: 19;
 
         $mark1 = ($sortBy % 10 == 1) ? '&nbsp;*' : '';
         $mark2 = ($sortBy % 10 == 2) ? '&nbsp;*' : '';
@@ -118,6 +119,7 @@ RenderContentStart("Achievement List" . $requestedConsole);
         $mark6 = ($sortBy % 10 == 6) ? '&nbsp;*' : '';
         $mark7 = ($sortBy % 10 == 7) ? '&nbsp;*' : '';
         $mark8 = ($sortBy % 10 == 8) ? '&nbsp;*' : '';
+        $mark9 = ($sortBy % 10 == 9) ? '&nbsp;*' : '';
 
         echo "<tr class='do-not-highlight'>";
 
@@ -131,8 +133,9 @@ RenderContentStart("Achievement List" . $requestedConsole);
         if (!$mobileBrowser) {
             echo "<th class='whitespace-nowrap'>";
             echo "<a href='/achievementList.php?s=$sort3&p=$params$dev_param'>Points</a>$mark3 ";
-            echo "<br><span class='TrueRatio'>(<a href='/achievementList.php?s=$sort4&p=$params$dev_param'>Retro Ratio</a>$mark4)</span>";
+            echo "<br><span class='TrueRatio'>(<a href='/achievementList.php?s=$sort4&p=$params$dev_param'>Retro Points</a>$mark4)</span>";
             echo "</th>";
+            echo "<th><a href='/achievementList.php?s=$sort9&p=$params$dev_param'>Retro Ratio</a>$mark9</th>";
             echo "<th><a href='/achievementList.php?s=$sort5&p=$params$dev_param'>Author</a>$mark5</th>";
         }
 
@@ -153,6 +156,7 @@ RenderContentStart("Achievement List" . $requestedConsole);
             $achDesc = $achEntry['Description'];
             $achPoints = $achEntry['Points'];
             $achTruePoints = $achEntry['TrueRatio'];
+            $achRetroRatio = $achEntry['RetroRatio'];
             $achAuthor = $achEntry['Author'];
             $achDateCreated = $achEntry['DateCreated'];
             $achDateModified = $achEntry['DateModified'];
@@ -186,6 +190,9 @@ RenderContentStart("Achievement List" . $requestedConsole);
                 echo "$achPoints ";
                 echo "<span class='TrueRatio'>($achTruePoints)</span>";
                 echo "</td>";
+
+                // Retro Ratio
+                echo "<td>$achRetroRatio</td>";
 
                 echo "<td>";
                 echo userAvatar($achAuthor, label: false);

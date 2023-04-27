@@ -32,7 +32,7 @@ function getAchievementsList(
 
     $query = "SELECT
                     ach.ID, ach.Title AS AchievementTitle, ach.Description, ach.Points, ach.TrueRatio, ach.Author, ach.DateCreated, ach.DateModified, ach.BadgeName, ach.GameID,
-                    gd.Title AS GameTitle, gd.ImageIcon AS GameIcon, gd.ConsoleID, c.Name AS ConsoleName
+                    gd.Title AS GameTitle, gd.ImageIcon AS GameIcon, gd.ConsoleID, c.Name AS ConsoleName, CASE WHEN ach.Points > 0 THEN ROUND(ach.TrueRatio/ach.Points, 2) ELSE 0.00 END AS RetroRatio
                 FROM Achievements AS ach
                 $innerJoin
                 LEFT JOIN GameData AS gd ON gd.ID = ach.GameID
@@ -84,6 +84,9 @@ function getAchievementsList(
         case 8:
             $query .= "ORDER BY ach.DateModified ";
             break;
+        case 9:
+            $query .= "ORDER BY RetroRatio ";
+            break;
         case 11:
             $query .= "ORDER BY ach.Title DESC ";
             break;
@@ -107,6 +110,9 @@ function getAchievementsList(
             break;
         case 18:
             $query .= "ORDER BY ach.DateModified DESC ";
+            break;
+        case 19:
+            $query .= "ORDER BY RetroRatio DESC ";
             break;
     }
 
