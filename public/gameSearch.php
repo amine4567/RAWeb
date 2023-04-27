@@ -75,7 +75,7 @@ RenderContentStart("Hardest Games");
         echo "<th>Genre</th>";
         echo "<th>Publisher</th>";
         echo "<th>Developer</th>";
-        echo "<th>Total Retro Ratio</th>";
+        echo "<th>Retro Ratio</th>";
         echo "</tr>";
 
         // $countCol = ( $method == 0 ) ? "Awards Given" : "Played By";
@@ -95,6 +95,7 @@ RenderContentStart("Hardest Games");
             $gameGenre = $gameEntry['Genre'];
             $gameReleased = $gameEntry['Released'];
             $gameTA = $gameEntry['TotalTruePoints'];
+            $retroRatio = $gameEntry['RetroRatio'];
             $consoleName = $gameEntry['ConsoleName'];
             // $numRecords = $gameEntry['NumRecords'];
 
@@ -126,7 +127,7 @@ RenderContentStart("Hardest Games");
             echo "</td>";
 
             echo "<td>";
-            echo "$gameTA";
+            echo "$retroRatio";
             echo "</td>";
 
             echo "</tr>";

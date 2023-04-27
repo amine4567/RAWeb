@@ -614,12 +614,17 @@ function getGameListSearch(int $offset, int $count, int $method, ?int $consoleID
             $where = "WHERE gd.ConsoleID = $consoleID ";
         }
 
-        // By TA:
-        $query = "    SELECT gd.ID, gd.Title, gd.ConsoleID, gd.ForumTopicID, gd.Flags, gd.ImageIcon, gd.ImageTitle, gd.ImageIngame, gd.ImageBoxArt, gd.Publisher, gd.Developer, gd.Genre, gd.Released, gd.TotalTruePoints, gd.IsFinal, c.Name AS ConsoleName
+        // By Retro Ratio:
+        $query = "    SELECT gd.ID, gd.Title, gd.ConsoleID, gd.ForumTopicID, gd.Flags, gd.ImageIcon, gd.ImageTitle,
+                             gd.ImageIngame, gd.ImageBoxArt, gd.Publisher, gd.Developer, gd.Genre, gd.Released, 
+                             gd.TotalTruePoints, gd.IsFinal, c.Name AS ConsoleName,
+                             CASE WHEN SUM(ach.Points) > 0 THEN ROUND(gd.TotalTruePoints/SUM(ach.Points), 2) ELSE 0.00 END AS RetroRatio
                     FROM GameData AS gd
                     LEFT JOIN Console AS c ON c.ID = gd.ConsoleID
+                    LEFT JOIN Achievements AS ach ON gd.ID = ach.GameID AND ach.Flags = " . AchievementType::OfficialCore . "
                     $where
-                    ORDER BY gd.TotalTruePoints DESC
+                    GROUP BY gd.ID
+                    ORDER BY RetroRatio DESC
                     LIMIT $offset, $count";
     }
 
