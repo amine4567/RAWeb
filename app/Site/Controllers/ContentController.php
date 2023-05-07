@@ -20,6 +20,11 @@ class ContentController extends Controller
     // {
     //     return view('docs');
     // }
+    
+    public function gameList(): View
+    {
+        return view('game-list');
+    }
 
     public function terms(): View
     {
