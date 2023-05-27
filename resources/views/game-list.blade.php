@@ -5,7 +5,7 @@
     
     $consoleList = System::get(['ID', 'Name'])->keyBy('ID')->map(fn ($system) => $system['Name']);
 
-    $consoleIDInput = @request("c", 0);
+    $consoleIDInput = (int)@request("c", 0);
     $filter = @request("f", 0); // 0 = no filter, 1 = only complete, 2 = only incomplete
     $sortBy = @request("s", 0);
     $dev = @request("d");
@@ -80,7 +80,6 @@
 
             <div style='float:left'>{{$gamesCount}} Games</div>
 
-            <!-- TODO: fix the logic -->
             <div align='right'>
                 <select class='gameselector' onchange='window.location = "/gameList?s={{$sortBy}}&c={{$consoleIDInput}}" + this.options[this.selectedIndex].value'>
                     <option value='' @if ($filter == 0) selected @endif>Games with achievements</option>
@@ -88,7 +87,6 @@
                     <option value='&f=2' @if ($filter == 2) selected @endif>All games</option>
                 </select>
             </div>
-            <!-- END TODO -->
 
             <br/>
 
