@@ -1,11 +1,11 @@
 <?php
+    use Illuminate\Support\Str;
     use LegacyApp\Platform\Models\System;
     use LegacyApp\Site\Enums\Permissions;
-    use Illuminate\Support\Str;
-    
+
     $consoleList = System::get(['ID', 'Name'])->keyBy('ID')->map(fn ($system) => $system['Name']);
 
-    $consoleIDInput = (int)@request("c", 0);
+    $consoleIDInput = (int) @request("c", 0);
     $filter = @request("f", 0); // 0 = no filter, 1 = only complete, 2 = only incomplete
     $sortBy = @request("s", 0);
     $dev = @request("d");
@@ -23,7 +23,7 @@
     $showTickets = (isset($user) && $permissions >= Permissions::Developer);
     $gamesList = [];
     $gamesCount = getGamesListByDev($dev, $consoleIDInput, $gamesList, (int) $sortBy, $showTickets, $filter, $offset, $maxCount);
-    
+
     if ($consoleList->has($consoleIDInput)) {
         $consoleName = $consoleList[$consoleIDInput];
         $requestedConsole = $consoleName;
