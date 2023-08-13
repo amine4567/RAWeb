@@ -121,7 +121,7 @@ function RenderToolbar(): void
                 $listId = $system['listID'];
                 $cleanSystemShortName = Str::lower(str_replace("/", "", config("systems.$listId.name_short")));
                 $iconName = Str::kebab($cleanSystemShortName);
-                echo "<li><a href='/gameList.php?c=$listId' class='!flex items-center gap-x-2' >"; // the flex class needs to be forced here
+                echo "<li><a href='/gameList?c=$listId' class='!flex items-center gap-x-2' >"; // the flex class needs to be forced here
                 echo " <img src='" . asset("assets/images/system/$iconName.png") . "' width='16' height='16' alt=''>";
                 echo " <span>$systemName</span>";
                 echo "</a></li>";
@@ -132,14 +132,14 @@ function RenderToolbar(): void
 
     echo "<ul>";
     echo "<li class='dropdown-header'>Miscellaneous</li>";
-    echo "<li><a href='/gameList.php'>All Games</a></li>";
+    echo "<li><a href='/gameList'>All Games</a></li>";
     echo "<li><a href='/gameSearch.php?p=0'>Hardest Games</a></li>";
     echo "<li><a href='/setRequestList.php'>Most Requested</a></li>";
     echo "<li><a href='/claimlist.php?s=9&f=8109'>New Sets & Revisions</a></li>";
     echo "<li><a href='/claimlist.php'>Sets in Progress</a></li>";
     echo "<li><a href='/random.php'>Random Set</a></li>";
     echo "<li class='dropdown-header'>Hubs</li>";
-    echo "<li><a href='/gameList.php?s=6&c=100&f=1'>Hub List</a></li>";
+    echo "<li><a href='/gameList?s=6&c=100&f=1'>Hub List</a></li>";
     echo "<li><a href='/game/6914'>Central Hub</a></li>";
     echo "<li><a href='/game/9553'>Genre & Subgenre Hub</a></li>";
     echo "<li><a href='/game/5771'>Series Hub</a></li>";
@@ -191,7 +191,7 @@ function RenderToolbar(): void
         echo "<ul>";
         echo "<li><a href='/user/$username'>Profile</a></li>";
         if ($contribCount > 0) {
-            echo "<li><a href='/gameList.php?d=$username'>My Sets</a></li>";
+            echo "<li><a href='/gameList?d=$username'>My Sets</a></li>";
             echo "<li><a href='/individualdevstats.php?u=$username'>My Dev Stats</a></li>";
             echo "<li><a href='/ticketmanager.php?u=$username'>My Tickets</a></li>";
         }

@@ -104,7 +104,7 @@ RenderContentStart("Developer Stats");
             echo "</small>";
             echo "</div></td>";
             echo "<td class='text-right'><a href='/ticketmanager.php?u=" . $devStats['Author'] . "'>" . $devStats['OpenTickets'] . "</a></td>";
-            echo "<td class='text-right'><a href='/gameList.php?d=" . $devStats['Author'] . "'>" . $devStats['Achievements'] . "</a></td>";
+            echo "<td class='text-right'><a href='/gameList?d=" . $devStats['Author'] . "'>" . $devStats['Achievements'] . "</a></td>";
             echo "<td class='text-right'><a href='/ticketmanager.php?r=" . $devStats['Author'] . "&t=" . $resolvedForOthersTicketFilter . "'>" . $devStats['TicketsResolvedForOthers'] . "</a></td>";
             echo "<td class='text-right'>" . $devStats['ContribCount'] . "</td>";
             echo "<td class='text-right'>" . $devStats['ContribYield'] . "</td>";
