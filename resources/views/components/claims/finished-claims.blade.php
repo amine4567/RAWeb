@@ -9,7 +9,10 @@ use App\Community\Enums\ClaimSorting;
  * Creates a unique key based on the given game title, user, and console id.
  * This key can then be used for convenient comparison of potential duplicates.
  */
-$createClaimKey = function (string $gameTitle, string $user, int $consoleId): string {
+$createClaimKey = function (string $gameTitle, ?string $user, int $consoleId): string {
+    if (is_null($user)){
+        $user = 'Scott';
+    }
     return $gameTitle . '_' . $user . '_' . $consoleId;
 };
 

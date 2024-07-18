@@ -3,12 +3,35 @@
 use Illuminate\Support\Carbon;
 ?>
 
-@props([
+<!-- @props([
     'achievement' => [],
     'beatenGameCreditDialogContext' => 's:|h:',
     'isCreditDialogEnabled' => true,
     'isUnlocked' => false,
     'isUnlockedHardcore' => false,
+    'showAuthorName' => false,
+    'totalPlayerCount' => 0,
+    'useMinimalLayout' => false,
+]) -->
+
+<!-- achievementData: {
+    badgeName: string,
+    Points: int,
+    TrueRatio: float,
+    type: ???,
+    description: string,
+    author: string
+}
+unlockedData: {
+    user: String,
+    dateEarned: Datetime,
+    isHardcore: Boolean
+} -->
+
+@props([
+    'achievementData' => [],
+    'unlockedData' => [],
+    'isCreditDialogEnabled' => true,
     'showAuthorName' => false,
     'totalPlayerCount' => 0,
     'useMinimalLayout' => false,
@@ -36,11 +59,16 @@ $renderedAchievementAvatar = achievementAvatar(
 );
 
 $unlockDate = '';
+$unlockTimestamp;
 if (isset($achievement['DateEarned'])) {
-    $unlockDate = Carbon::parse($achievement['DateEarned'])->format('F j Y, g:ia');
+    $parsedDateEarned = Carbon::parse($achievement['DateEarned']);
+    $unlockDate = $parsedDateEarned->format('F j Y, g:ia');
+    $unlockTimestamp = $parsedDateEarned->timestamp;
 }
 if (isset($achievement['DateEarnedHardcore'])) {
-    $unlockDate = Carbon::parse($achievement['DateEarnedHardcore'])->format('F j Y, g:ia');
+    $parsedDateEarned = Carbon::parse($achievement['DateEarnedHardcore']);
+    $unlockDate = $parsedDateEarned->format('F j Y, g:ia');
+    $unlockTimestamp = $parsedDateEarned->timestamp;
 }
 ?>
 
@@ -96,7 +124,11 @@ if (isset($achievement['DateEarnedHardcore'])) {
             @if ($isUnlocked || $isUnlockedHardcore)
                 <p class="hidden md:block mt-1.5 text-[0.6rem] text-neutral-400/70">
                     Unlocked
-                    @if ($unlockDate) {{ $unlockDate }} @endif
+                    @if ($unlockDate) 
+                        <a href="/historyexamine.php?d={{$unlockTimestamp}}&u=Scott">
+                            {{ $unlockDate }} 
+                        </a>
+                    @endif
                 </p>
             @endif
         </div>

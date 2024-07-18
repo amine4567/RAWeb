@@ -4,6 +4,7 @@
 
 use App\Community\Enums\ArticleType;
 use App\Enums\Permissions;
+use App\Models\Achievement;
 use App\Models\Game;
 use App\Models\PlayerAchievement;
 use App\Models\System;
@@ -13,6 +14,8 @@ use App\Platform\Enums\AchievementFlag;
 use App\Platform\Enums\AchievementPoints;
 use App\Platform\Enums\AchievementType;
 use App\Platform\Services\TriggerDecoderService;
+use App\Platform\Types\AchievementUnlocksData;
+use App\Platform\Types\UserAchievementUnlockData;
 use App\Support\Shortcode\Shortcode;
 use Illuminate\Support\Facades\Blade;
 
@@ -25,10 +28,18 @@ if (empty($achievementID)) {
     abort(404);
 }
 
+$achievementData = Achievement::find($achievementID);
+if (empty($achievementData)) {
+    abort(404);
+}
+$userAchievementUnlockData=null;
+
+
 $dataOut = GetAchievementData($achievementID);
 if (empty($dataOut)) {
     abort(404);
 }
+
 
 $achievementTitle = $dataOut['Title'];
 $desc = $dataOut['Description'];
@@ -91,13 +102,17 @@ $unlocks = $unlocks->filter(fn ($unlock) => $trackedUnlocksUsers->contains($unlo
 $dataOut['NumAwarded'] = $numWinners;
 $dataOut['NumAwardedHardcore'] = $numWinnersHardcore;
 
+$achievementUnlocksData = new AchievementUnlocksData($numWinners, $numWinnersHardcore);
+
 $dateWonLocal = "";
+$isHardcore = false;
 foreach ($unlocks as $userObject) {
     if ($userObject['User'] == $user) {
         $dateWonLocal = $userObject['DateAwarded'];
 
         if ($userObject['HardcoreMode'] === 1) {
             $dataOut['DateEarnedHardcore'] = $dateWonLocal;
+            $isHardcore = true;
         } else {
             $dataOut['DateEarned'] = $dateWonLocal;
         }
@@ -126,6 +141,10 @@ if ($dateWonLocal === "" && isset($user)) {
 $achievedLocal = ($dateWonLocal !== "");
 
 $numArticleComments = getRecentArticleComments(ArticleType::Achievement, $achievementID, $commentData);
+
+if(isset($user) && $dateWonLocal) {
+    $userAchievementUnlockData = new UserAchievementUnlockData($user, $dateWonLocal, $isHardcore);
+}
 ?>
 <x-app-layout
     pageTitle="{!! $achievementTitleRaw !!} in {!! $gameTitleRaw !!} ({{ $consoleName }})"
@@ -231,11 +250,18 @@ $numArticleComments = getRecentArticleComments(ArticleType::Achievement, $achiev
         :consoleName="$consoleName"
         :gameTitle="$gameTitle"
     />
-    <x-game.achievements-list.achievements-list-item
+    <!-- <x-game.achievements-list.achievements-list-item
         :achievement="$dataOut"
         :isCreditDialogEnabled="false"
         :totalPlayerCount="$numPossibleWinners"
         :isUnlocked="$achievedLocal"
+    /> -->
+    <x-achievement-card
+        :achievementData="$achievementData"
+        :achievementUnlocksData="$achievementUnlocksData"
+        :userAchievementUnlockData="$userAchievementUnlockData"
+        :totalPlayerCount="$numPossibleWinners"
+        :isCreditDialogEnabled="false"
     />
     <?php
     $niceDateCreated = date("d M, Y H:i", strtotime($dateCreated));

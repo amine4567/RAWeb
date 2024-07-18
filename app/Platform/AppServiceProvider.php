@@ -48,6 +48,7 @@ use App\Platform\Commands\UpdateLeaderboardMetrics;
 use App\Platform\Commands\UpdatePlayerGameMetrics;
 use App\Platform\Commands\UpdatePlayerMetrics;
 use App\Platform\Commands\UpdatePlayerStats;
+use App\Platform\Components\AchievementCard;
 use App\Platform\Components\GameCard;
 use App\Platform\Components\GameTitle;
 use Illuminate\Console\Scheduling\Schedule;
@@ -144,6 +145,8 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('game-card', GameCard::class);
         Blade::component('game-title', GameTitle::class);
+
+        Blade::component('achievement-card', AchievementCard::class);
 
         // Livewire::component('achievement-grid', AchievementGrid::class);
         // Livewire::component('achievement-player-grid', AchievementPlayerGrid::class);

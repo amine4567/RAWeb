@@ -38,12 +38,12 @@ class TicketNotificationsIcon extends Component
         }
 
         $ticketFeedback = countRequestTicketsByUser($user);
-        if ($ticketFeedback) {
-            $notifications->push([
-                'link' => route('reporter.tickets', $user),
-                'title' => $ticketFeedback . ' ' . __res('ticket', $ticketFeedback) . ' awaiting your feedback',
-            ]);
-        }
+        // if ($ticketFeedback) {
+        //     $notifications->push([
+        //         'link' => route('reporter.tickets', $user),
+        //         'title' => $ticketFeedback . ' ' . __res('ticket', $ticketFeedback) . ' awaiting your feedback',
+        //     ]);
+        // }
 
         $unreadCount = $notifications->filter(fn ($notification) => !($notification['read'] ?? false))->count();
 
