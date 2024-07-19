@@ -72,7 +72,7 @@
 
             @if (!$useMinimalLayout)
                 <x-game.achievements-list.list-item-global-progress
-                    :achievement="$achievementUnlocksData"
+                    :achievement="$achievementUnlocksData->getArray()"
                     :totalPlayerCount="$totalPlayerCount"
                 />
             @endif

@@ -102,7 +102,7 @@ $unlocks = $unlocks->filter(fn ($unlock) => $trackedUnlocksUsers->contains($unlo
 $dataOut['NumAwarded'] = $numWinners;
 $dataOut['NumAwardedHardcore'] = $numWinnersHardcore;
 
-$achievementUnlocksData = new AchievementUnlocksData($numWinners, $numWinnersHardcore);
+$achievementUnlocksData = new AchievementUnlocksData($achievementID, $badgeName, $numWinners, $numWinnersHardcore);
 
 $dateWonLocal = "";
 $isHardcore = false;
@@ -250,12 +250,6 @@ if(isset($user) && $dateWonLocal) {
         :consoleName="$consoleName"
         :gameTitle="$gameTitle"
     />
-    <!-- <x-game.achievements-list.achievements-list-item
-        :achievement="$dataOut"
-        :isCreditDialogEnabled="false"
-        :totalPlayerCount="$numPossibleWinners"
-        :isUnlocked="$achievedLocal"
-    /> -->
     <x-achievement-card
         :achievementData="$achievementData"
         :achievementUnlocksData="$achievementUnlocksData"
