@@ -17,7 +17,7 @@ class AchievementUnlocksData
         $this->numAwardedHardcore = $numAwardedHardcore;
     }
 
-    public function getArray()
+    public function getArray(): array
     {
         return [
             "ID" => $this->id,
