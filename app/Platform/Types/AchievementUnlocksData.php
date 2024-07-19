@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Platform\Types;
 
 class AchievementUnlocksData
@@ -21,7 +22,7 @@ class AchievementUnlocksData
         return [
             "ID" => $this->id,
             "NumAwarded" => $this->numAwarded,
-            "NumAwardedHardcore" => $this->numAwardedHardcore
+            "NumAwardedHardcore" => $this->numAwardedHardcore,
         ];
     }
 }

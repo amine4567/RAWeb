@@ -8,12 +8,11 @@ use App\Models\Achievement;
 use App\Platform\Types\AchievementUnlocksData;
 use App\Platform\Types\UserAchievementUnlockData;
 use Illuminate\Contracts\View\View;
-use Illuminate\View\Component;
 use Illuminate\Support\Carbon;
+use Illuminate\View\Component;
 
 class AchievementCard extends Component
 {
-
     private Achievement $achievementData;
     private AchievementUnlocksData $achievementUnlocksData;
     private ?UserAchievementUnlockData $userAchievementUnlockData;
@@ -23,15 +22,16 @@ class AchievementCard extends Component
     private int $totalPlayerCount = 0;
     private bool $useMinimalLayout = false;
 
-    public function __construct(Achievement $achievementData, 
-    AchievementUnlocksData $achievementUnlocksData,
-    ?UserAchievementUnlockData $userAchievementUnlockData, 
-    string $beatenGameCreditDialogContext = 's:|h:', 
-    bool $isCreditDialogEnabled = true,
-    bool $showAuthorName = false,
-    int $totalPlayerCount = 0,
-    bool $useMinimalLayout = false)
-    {
+    public function __construct(
+        Achievement $achievementData,
+        AchievementUnlocksData $achievementUnlocksData,
+        ?UserAchievementUnlockData $userAchievementUnlockData,
+        string $beatenGameCreditDialogContext = 's:|h:',
+        bool $isCreditDialogEnabled = true,
+        bool $showAuthorName = false,
+        int $totalPlayerCount = 0,
+        bool $useMinimalLayout = false
+    ) {
         $this->achievementData = $achievementData;
         $this->achievementUnlocksData = $achievementUnlocksData;
         $this->userAchievementUnlockData = $userAchievementUnlockData;
@@ -77,7 +77,7 @@ class AchievementCard extends Component
         );
         $unlockDate = '';
         $unlockTimestamp = 0;
-        if(isset($this->userAchievementUnlockData)) {
+        if (isset($this->userAchievementUnlockData)) {
             $parsedDateEarned = Carbon::parse($this->userAchievementUnlockData->dateEarned);
             $unlockDate = $parsedDateEarned->format('F j Y, g:ia');
             $unlockTimestamp = $parsedDateEarned->timestamp;

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Platform\Types;
 
 class UserAchievementUnlockData
