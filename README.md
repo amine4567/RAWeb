@@ -5,7 +5,7 @@ It is a Laravel application ([TALL stack](https://tallstack.dev/)).
 
 ## Requirements
 
-- Local web server
+- Local web servers
 - [PHP 8.2](http://php.net/manual/en/)
 - [Composer](https://getcomposer.org/) PHP dependency manager
 - [MariaDB 10](https://mariadb.com/docs/server/)
